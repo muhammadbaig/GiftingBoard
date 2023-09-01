@@ -1,0 +1,306 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    var boardid = 0;
+}
+<style>
+    .boardbtn {
+        background-color: #00bcd4;
+        color: black;
+        padding-top: 4px;
+        font-weight: bold;
+        padding-bottom: 6px;
+        border-radius: 40% 40% 40% 40%;
+        font-size: 15px;
+        text-align: center;
+        max-width: 200px;
+        margin-left: 70px;
+    }
+
+    .boardstyle {
+        background-color: #00bcd4;
+        border-radius: 40% 40% 0% 0%;
+        padding-top: 20px;
+        color: black;
+        font-weight: bold;
+        font-size: 25px;
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    .boardstylecenter {
+        background-color: black;
+        padding-top: 5px;
+        color: white;
+        text-align: center;
+        padding-bottom: 5px;
+    }
+
+    .boardstyle1 {
+        background-color: #00bcd4;
+        border-radius: 0% 0% 40% 40%;
+        padding-top: 20px;
+        color: black;
+        font-weight: bold;
+        text-align: center;
+        font-size: 25px;
+        padding-bottom: 20px;
+    }
+</style>
+<div class="main-content ">
+    <div class="container-fluid ">
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-warning card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">weekend</i>
+                            </div>
+                            <p class="card-category">Active Boards</p>
+                            <h3 class="card-title">@ViewBag.totalactiveboard</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons text-danger">warning</i>
+                                <a href="#pablo">Active Boards</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">equalizer</i>
+                            </div>
+                            <p class="card-category">Total Boards</p>
+                            <h3 class="card-title">@ViewBag.totalboard</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i> Boards
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-info card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">account_box</i>
+                            </div>
+                            <p class="card-category">Total Users</p>
+                            <h3 class="card-title">@ViewBag.totaluser</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i> Users
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        }
+        @if (User.IsInRole("User"))
+        {
+            GiftingBoard.Models.GiftingBoardEntities db = new GiftingBoard.Models.GiftingBoardEntities();
+            string userId = ViewBag.currentId;
+            var activeboard = db.Boards.Where(w => w.Members.Where(ww => ww.memberId == userId).FirstOrDefault().IsActive == true).FirstOrDefault();
+            var step = 1;
+            var tb = db.Members.Where(w => w.corememberId == userId).Count();
+            //db.Boards.Where(w => w.Isexpired == true && w.BoardValueId == 1 && w.Members.Where(ww => ww.corememberId == userId).Count() > 0).FirstOrDefault();
+            if (activeboard == null && tb > 0)
+            {
+                activeboard = db.Boards.Where(w => w.BoardValueId == 2 && w.Members.FirstOrDefault().IsActive == true).FirstOrDefault();
+                step = 2;
+            }
+            else if (activeboard == null)
+            {
+                step = 2;
+                activeboard = db.Boards.Where(w => w.Members.FirstOrDefault().IsActive == true && w.Isexpired == false && w.BoardValueId == 1).FirstOrDefault();
+            }
+            var core1 = activeboard.Members.Where(x => x.isCoremember == true).FirstOrDefault();
+            var corr2 = activeboard.Members.Where(x => x.isCoremember == true).LastOrDefault();
+            boardid = activeboard.Id;
+            <div class="row">
+                <div class="col-12" id="selects" hidden>
+
+                    <div class="form-group" id="select">
+                        <select class="form-control" name="corememberId" required>
+                            <option value="">Select Core member</option>
+
+
+                            @if (activeboard.Members.Where(x => x.corememberId == core1.memberId).Count() < 4)
+                            {
+                                <option value="@core1.memberId">@core1.AspNetUser.FirstName</option>
+
+                            }
+                            @if (activeboard.Members.Where(w => w.corememberId == corr2.memberId).Count() < 4)
+                            {
+                                <option value="@corr2.memberId">@corr2.AspNetUser.FirstName</option>
+
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-warning card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">weekend</i>
+                            </div>
+                            <p class="card-category">My Active Boards</p>
+                            <h3 class="card-title">@activeboard.Name</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons text-danger">warning</i>
+                                <a href="#pablo">Active Boards</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-info card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">weekend</i>
+                            </div>
+                            <p class="card-category">My Previous Boards</p>
+                            <h3 class="card-title">
+                                @if (step == 1)
+                                {
+                                    @*@db.Members.Where(w => w.memberId == userId && w.BoardId != activeboard.Id).ToList().LastOrDefault().Board.Name*@
+                                }
+                            </h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons text-danger">warning</i>
+                                <a href="#pablo">Previous Boards</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">equalizer</i>
+                            </div>
+                            <p class="card-category">Total Boards</p>
+                            <h3 class="card-title">@db.Members.Where(w => w.memberId == userId).GroupBy(g => g.BoardId).Count()</h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">local_offer</i> Boards
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row justify-content-center">
+
+                <div class="col-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Board Name -<b>@activeboard.Name@if (activeboard.Number != 0) { Write(activeboard.Number); } </b>  &nbsp;&nbsp; Board Type - <b>@activeboard.BoardValue.Value</b></h4>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                @foreach (var itm in activeboard.Members.Where(w => w.corememberId == core1.memberId).ToList())
+                                {
+                                    <div class="col-6 ">
+                                        <p class="boardbtn mb-2">@itm.AspNetUser.FirstName</p>
+                                    </div>
+                                }
+                                @for (int ii = 0; ii < 4 - activeboard.Members.Where(w => w.corememberId == core1.memberId).Count(); ii++)
+                                {
+                                    <div class="col-6 text-right mb-2 ">
+                                        <p class="boardbtn bg-warning">Available</p>
+                                    </div>
+                                }
+
+                                <div class="col-12 mt-2 mb-2">
+                                    <div class="boardstyle"><p>@core1.AspNetUser.FirstName</p></div>
+                                    <div class="boardstylecenter"><p></p></div>
+                                    <div class="boardstyle1"><p>@corr2.AspNetUser.FirstName</p></div>
+                                </div>
+                                @foreach (var itm in activeboard.Members.Where(w => w.corememberId == corr2.memberId).ToList())
+                                {
+                                    <div class="col-6 ">
+                                        <p class="boardbtn mb-2">@itm.AspNetUser.FirstName</p>
+                                    </div>
+                                }
+                                @for (int ii = 0; ii < 4 - activeboard.Members.Where(w => w.corememberId == corr2.memberId).Count(); ii++)
+                                {
+                                    <div class="col-6 text-right mb-2 ">
+                                        <p class="boardbtn bg-warning">Available</p>
+                                    </div>
+                                }
+
+                                @if (step == 2)
+                                {
+                                    <div class="col-12 mt-3 text-right">
+                                        <button class="btn btn-info" onclick="addmember()"><i class="fa fa-plus mr-2"></i>Join A Board</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Join A Board</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="@Url.Action("addmember","Dashboard")">
+                <input type="hidden" name="BoardId" value="@boardid" />
+                <input type="hidden" name="memberId" value="@ViewBag.currentId" />
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6" id="modelselect">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                            <div class="col-6 text-right">
+                                <button type="submit" class="btn btn-info"><i class="fa fa-plus mr-2"></i>Join</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+    function addmember() {
+        $('#modelselect').html($('#select').html());
+        $('#exampleModal').modal('show');
+    }
+</script>

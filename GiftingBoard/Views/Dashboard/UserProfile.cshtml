@@ -1,0 +1,133 @@
+﻿
+@model GiftingBoard.Models.AspNetUser
+@{
+    ViewBag.Title = "My Profile";
+}
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    <div class="card-avatar">
+                        @{
+                            var catepict = Model.Image == null ? "/Content/assets/img/default-avatar.png" : Model.Image;
+
+                        }
+                        <a href="#pablo">
+                            <img class="img" src="@catepict" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-category text-gray">@Model.Email</h6>
+                        <h4 class="card-title">@Model.UserName</h4>
+                        @*<p class="card-title text-info"><a class="text-info" href="@Url.Action("ProfileEdit","Dashboard",new { id=Model.Id})">Edit Profile</a></p>*@
+                        @*<p class="card-description">
+                                <a class="text-success reset" href="#" data-id="@Model.Id">Reset Password</a>
+                            </p>*@
+                        <!-- <a href="#pablo" class="btn btn-rose btn-round">Follow</a> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-icon card-header-info">
+                        <div class="card-icon">
+                            <i class="material-icons">perm_identity</i>
+                        </div>
+                        <h4 class="card-title">
+                            Profile-
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+
+                                @*<div class="col-md-12">
+                                        <div class="row p-2" style="border-bottom:1px solid  #00000026;">
+                                            <div class="col-md-6">
+                                                <h5 class="bmd-label-floating">Company </h5>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h4 class="pull-right">Lorem ipsum</h4>
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                                <div class="col-md-12">
+                                    <div class="row p-2" style="border-bottom:1px solid  #00000026;">
+                                        <div class="col-md-6">
+                                            <h5 class="bmd-label-floating">First Name </h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4 class="pull-right">@Model.FirstName </h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="row p-2" style="border-bottom:1px solid  #00000026;">
+                                        <div class="col-md-6">
+                                            <h5 class="bmd-label-floating">Last Name </h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4 class="pull-right">@Model.LastName </h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*<div class="col-md-12">
+                                        <div class="row p-2" style="border-bottom:1px solid  #00000026;">
+                                            <div class="col-md-6">
+                                                <h5 class="bmd-label-floating">Country </h5>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h4 class="pull-right">Abc</h4>
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                                <div class="col-md-12">
+                                    <div class="row p-2" style="border-bottom:1px solid  #00000026;">
+                                        <div class="col-md-6">
+                                            <h5 class="bmd-label-floating">Phone </h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4 class="pull-right">@Model.PhoneNumber </h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="row p-2" style="border-bottom:1px solid  #00000026;">
+                                        <div class="col-md-6">
+                                            <h5 class="bmd-label-floating">Company </h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4 class="pull-right">esquall</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="row p-2" style="border-bottom:1px solid  #00000026;">
+                                        <div class="col-md-6">
+                                            <h5 class="bmd-label-floating">Country</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4 class="pull-right">Us</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

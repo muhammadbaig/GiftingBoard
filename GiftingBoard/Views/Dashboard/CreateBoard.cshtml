@@ -1,0 +1,86 @@
+﻿@model GiftingBoard.Models.Board
+@{
+    ViewBag.Title = "Create Board";
+}
+@{
+    GiftingBoard.Models.GiftingBoardEntities db = new GiftingBoard.Models.GiftingBoardEntities();
+    var coremeber = db.AspNetUsers.Where(w => w.AspNetRoles.FirstOrDefault().Name != "Admin").Select(s => new { name = s.UserName, s.Id }).ToList();
+    var boardvalues = db.BoardValues.ToList();
+}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card ">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">mail_outline</i>
+                        </div>
+                        <h4 class="card-title">Create Board</h4>
+                    </div>
+                    <form method="post" action="CreateBoard">
+
+                        <div class="card-body ">
+
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Name" class="bmd-label-floating">Board Name</label>
+                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "true" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="BoardValueId" data-style="select-with-transition" required title="Select Board Value">
+                                                @foreach (var itm in boardvalues)
+                                                {
+                                                    <option value="@itm.Id"> @itm.Value </option>
+
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="CorememberId1" data-style="select-with-transition" required title="Select Core Member1">
+                                                @foreach (var itm in coremeber)
+                                                {
+                                                    <option value="@itm.Id"> @itm.name </option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="CorememberId2" data-style="select-with-transition" required title="Select Core Member2">
+                                                @foreach (var itm in coremeber)
+                                                {
+                                                    <option value="@itm.Id"> @itm.name </option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <div class="col-12 text-right">
+                                <button type="submit" class="btn btn-info"><i class="fa fa-save mr-2"></i> Save</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+    $('#selectpicker').select2();
+</script>

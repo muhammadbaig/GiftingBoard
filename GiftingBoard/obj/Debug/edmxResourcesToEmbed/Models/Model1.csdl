@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GiftingBoardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="GiftingBoardEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AspNetRoles" EntityType="GiftingBoardModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="GiftingBoardModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="GiftingBoardModel.AspNetUserLogin" />
+    <EntitySet Name="Boards" EntityType="GiftingBoardModel.Board" />
+    <EntitySet Name="BoardValues" EntityType="GiftingBoardModel.BoardValue" />
+    <EntitySet Name="Members" EntityType="GiftingBoardModel.Member" />
+    <AssociationSet Name="FK_Board_BoardValue" Association="GiftingBoardModel.FK_Board_BoardValue">
+      <End Role="BoardValue" EntitySet="BoardValues" />
+      <End Role="Board" EntitySet="Boards" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Members_Board" Association="GiftingBoardModel.FK_Members_Board">
+      <End Role="Board" EntitySet="Boards" />
+      <End Role="Member" EntitySet="Members" />
+    </AssociationSet>
+    <EntitySet Name="tbl_Conversation" EntityType="GiftingBoardModel.tbl_Conversation" />
+    <EntitySet Name="AspNetUsers" EntityType="GiftingBoardModel.AspNetUser" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="GiftingBoardModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="GiftingBoardModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Members_AspNetUsers1" Association="GiftingBoardModel.FK_Members_AspNetUsers1">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Member" EntitySet="Members" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Conversation_AspNetUsers" Association="GiftingBoardModel.FK_tbl_Conversation_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="tbl_Conversation" EntitySet="tbl_Conversation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Conversation_AspNetUsers1" Association="GiftingBoardModel.FK_tbl_Conversation_AspNetUsers1">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="tbl_Conversation" EntitySet="tbl_Conversation" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="GiftingBoardModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="GiftingBoardModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="GiftingBoardModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="GiftingBoardModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="Board">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BoardValueId" Type="Int32" Nullable="false" />
+    <Property Name="Isexpired" Type="Boolean" Nullable="false" />
+    <Property Name="Number" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BoardValue" Relationship="GiftingBoardModel.FK_Board_BoardValue" FromRole="Board" ToRole="BoardValue" />
+    <NavigationProperty Name="Members" Relationship="GiftingBoardModel.FK_Members_Board" FromRole="Board" ToRole="Member" />
+  </EntityType>
+  <EntityType Name="BoardValue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Boards" Relationship="GiftingBoardModel.FK_Board_BoardValue" FromRole="BoardValue" ToRole="Board" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="memberId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="BoardId" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="isCoremember" Type="Boolean" Nullable="false" />
+    <Property Name="corememberId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Board" Relationship="GiftingBoardModel.FK_Members_Board" FromRole="Member" ToRole="Board" />
+    <NavigationProperty Name="AspNetUser" Relationship="GiftingBoardModel.FK_Members_AspNetUsers1" FromRole="Member" ToRole="AspNetUser" />
+  </EntityType>
+  <Association Name="FK_Board_BoardValue">
+    <End Type="GiftingBoardModel.BoardValue" Role="BoardValue" Multiplicity="1" />
+    <End Type="GiftingBoardModel.Board" Role="Board" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BoardValue">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Board">
+        <PropertyRef Name="BoardValueId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Members_Board">
+    <End Type="GiftingBoardModel.Board" Role="Board" Multiplicity="1" />
+    <End Type="GiftingBoardModel.Member" Role="Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Board">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Member">
+        <PropertyRef Name="BoardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tbl_Conversation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MsgDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SenderID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ReceiverID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="GiftingBoardModel.FK_tbl_Conversation_AspNetUsers" FromRole="tbl_Conversation" ToRole="AspNetUser" />
+    <NavigationProperty Name="AspNetUser1" Relationship="GiftingBoardModel.FK_tbl_Conversation_AspNetUsers1" FromRole="tbl_Conversation" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="GiftingBoardModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="GiftingBoardModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="Members" Relationship="GiftingBoardModel.FK_Members_AspNetUsers1" FromRole="AspNetUser" ToRole="Member" />
+    <NavigationProperty Name="tbl_Conversation" Relationship="GiftingBoardModel.FK_tbl_Conversation_AspNetUsers" FromRole="AspNetUser" ToRole="tbl_Conversation" />
+    <NavigationProperty Name="tbl_Conversation1" Relationship="GiftingBoardModel.FK_tbl_Conversation_AspNetUsers1" FromRole="AspNetUser" ToRole="tbl_Conversation" />
+    <NavigationProperty Name="AspNetRoles" Relationship="GiftingBoardModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+    <Property Name="BankName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AccountHolderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AccountNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AccountType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="RoutingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="GiftingBoardModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="GiftingBoardModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="GiftingBoardModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="GiftingBoardModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Members_AspNetUsers1">
+    <End Type="GiftingBoardModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="GiftingBoardModel.Member" Role="Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Member">
+        <PropertyRef Name="memberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Conversation_AspNetUsers">
+    <End Type="GiftingBoardModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="GiftingBoardModel.tbl_Conversation" Role="tbl_Conversation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_Conversation">
+        <PropertyRef Name="SenderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Conversation_AspNetUsers1">
+    <End Type="GiftingBoardModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="GiftingBoardModel.tbl_Conversation" Role="tbl_Conversation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tbl_Conversation">
+        <PropertyRef Name="ReceiverID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="GiftingBoardModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="GiftingBoardModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+</Schema>

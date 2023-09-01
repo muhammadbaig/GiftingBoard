@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ddfbd6adc630463f9b9c2f0b71a8740e" Name="Diagram1">
+        <EntityTypeShape EntityType="GiftingBoardModel.AspNetRole" Width="1.5" PointX="0.75" PointY="6.125" />
+        <EntityTypeShape EntityType="GiftingBoardModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="10.5" />
+        <EntityTypeShape EntityType="GiftingBoardModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="4.625" />
+        <EntityTypeShape EntityType="GiftingBoardModel.Board" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="GiftingBoardModel.BoardValue" Width="1.5" PointX="3.75" PointY="1.25" />
+        <EntityTypeShape EntityType="GiftingBoardModel.Member" Width="1.5" PointX="8.25" PointY="5.625" />
+        <AssociationConnector Association="GiftingBoardModel.FK_Board_BoardValue" />
+        <AssociationConnector Association="GiftingBoardModel.FK_Members_Board" />
+        <EntityTypeShape EntityType="GiftingBoardModel.tbl_Conversation" Width="1.5" PointX="5.25" PointY="14" />
+        <EntityTypeShape EntityType="GiftingBoardModel.AspNetUser" Width="1.5" PointX="3" PointY="4.375" />
+        <AssociationConnector Association="GiftingBoardModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="GiftingBoardModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="GiftingBoardModel.FK_Members_AspNetUsers1" />
+        <AssociationConnector Association="GiftingBoardModel.FK_tbl_Conversation_AspNetUsers" />
+        <AssociationConnector Association="GiftingBoardModel.FK_tbl_Conversation_AspNetUsers1" />
+        <AssociationConnector Association="GiftingBoardModel.AspNetUserRoles" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

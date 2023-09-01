@@ -1,0 +1,225 @@
+﻿@model GiftingBoard.Models.AspNetUser
+@{
+    ViewBag.Title = "Edit Profile";
+
+}
+@{
+    var role = Model.AspNetRoles.FirstOrDefault().Name;
+}
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10 col-12 mr-auto ml-auto">
+                <!--      Wizard container        -->
+                <div class="wizard-container">
+                    <div class="card card-wizard mt-0" data-color="rose" id="wizardProfile">
+                        <form action="@Url.Action("ProfileEdit", "Dashboard")" enctype="multipart/form-data" method="post">
+                            <input type="hidden" name="Id" value="@Model.Id" />
+                            <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+                            <div class="card-header text-center">
+                                <h3 class="card-title">
+                                    Edit
+                                    Profile
+                                </h3>
+                                @*<h5 class="card-description">This information will let us know more about you.</h5>*@
+                            </div>
+                            <div class="wizard-navigation">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#about" data-toggle="tab" role="tab">
+                                            Step1
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#account" data-toggle="tab" role="tab">
+                                            Step2
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#address" data-toggle="tab" role="tab">
+                                            Step3
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="about">
+                                        <h5 class="info-text"> Enter your basic information</h5>
+                                        <div class="row justify-content-center">
+                                            <div class="col-sm-4">
+                                                <div class="picture-container">
+                                                    @{
+                                                        var catepict = Model.Image == null ? "/Content/assets/img/default-avatar.png" : Model.Image;
+
+                                                    }
+                                                    <div class="picture">
+                                                        <img src="@catepict" class="picture-src" id="wizardPicturePreview" title="" />
+                                                        <input type="file" id="wizard-picture" name="image">
+                                                    </div>
+                                                    <h6 class="description">Choose Picture</h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="input-group form-control-lg">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="material-icons">face</i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInput1" class="bmd-label-floating">First Name (required)</label>
+                                                        <input type="text" class="form-control" value="@Model.FirstName" id="exampleInput1" name="firstname" required>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group form-control-lg">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="material-icons">record_voice_over</i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInput11" class="bmd-label-floating">Last Name (required)</label>
+                                                        <input type="text" class="form-control" value="@Model.LastName" id="exampleInput11" name="lastname" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-10 mt-3">
+                                                <div class="input-group form-control-lg">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="material-icons">email</i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInput1" class="bmd-label-floating">Email (required)</label>
+                                                        <input type="email" class="form-control" value="@Model.Email" id="exampleemalil" readonly name="email" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="account">
+                                        <div class="row justify-content-center">
+                                            <div class="col-sm-12">
+                                                <h5 class="info-text"> Information Details!! </h5>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Phone Number</label>
+                                                    <input type="text" name="phoneNumber" value="@Model.PhoneNumber" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="exampleInput11" class="bmd-label-floating">Company</label>
+                                                    <input type="text" class="form-control" value="Esquall" id="exampleInput11" name="Company">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-12 mt-3"></div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="exampleInput11" class="bmd-label-floating">Country</label>
+                                                    <input type="text" class="form-control" value="Abc" id="exampleInput11" name="Country">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 mt-3"></div>
+
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="address">
+                                        <div class="row justify-content-center">
+                                            @if (role == "Admin")
+                                            {
+                                                <div class="row justify-content-center">
+                                                    <div class="col-sm-12">
+                                                        @*<h5 class="info-text"> Security </h5>*@
+                                                    </div>
+
+
+                                                    <div class="col-12"></div>
+
+                                                    <div class="col-12 mt-4 pt-4">
+                                                        <h2 class="text-center">All Done........... <i class="fa fa-exclamation-circle ml-2"></i></h2>
+                                                    </div>
+
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="row justify-content-center">
+                                                    <div class="col-sm-12">
+                                                        <h5 class="info-text"> Account Details </h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label>Bank Name</label>
+                                                                <input type="text" name="BankName" id="BankName" placeholder="e.g. Bank Of America" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group" id="radius">
+                                                                <label>Account Holder Name</label>
+                                                                <input type="text" name="AccountHolderName" id="AccountHolderName" placeholder="e.g. John Smith" class="form-control">
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 mt-3"></div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group" id="radius">
+                                                                <label>Account Number</label>
+                                                                <input type="text" name="AccountNumber" id="AccountNumber" placeholder="e.g. 8276019671" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group" id="radius">
+                                                                <label>Routing Number</label>
+                                                                <input type="text" name="RoutingNumber" id="RoutingNumber" placeholder="e.g. 122105155" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 mt-3"></div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group" id="radius">
+                                                                <label>Account Type</label>
+                                                                <input type="text" name="AccountType" id="AccountType" placeholder="e.g. 'e', 's'" class="form-control">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-12 mt-3"></div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="mr-auto">
+                                    <input type="button" class="btn btn-previous btn-fill btn-info btn-wd disabled" name="previous" value="Previous">
+                                </div>
+                                <div class="ml-auto">
+                                    <input type="button" class="btn btn-next btn-fill btn-info btn-wd" name="next" value="Next">
+                                    <input type="submit" class="btn btn-finish btn-fill btn-info btn-wd" name="finish" value="Finish" style="display: none;">
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- wizard container -->
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>

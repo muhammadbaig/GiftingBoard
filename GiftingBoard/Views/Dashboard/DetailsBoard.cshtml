@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewBag.Title = "Details Board";
+}
+<style>
+    .boardbtn {
+        background-color: #00bcd4;
+        color: black;
+        padding-top: 4px;
+        font-weight: bold;
+        padding-bottom: 6px;
+        border-radius: 40% 40% 40% 40%;
+        font-size: 15px;
+        text-align: center;
+        max-width: 200px;
+    }
+
+    .boardstyle {
+        background-color: #00bcd4;
+        border-radius: 40% 40% 0% 0%;
+        padding-top: 20px;
+        color: black;
+        font-weight: bold;
+        font-size: 25px;
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    .boardstylecenter {
+        background-color: black;
+        padding-top: 5px;
+        color: white;
+        text-align: center;
+        padding-bottom: 5px;
+    }
+
+    .boardstyle1 {
+        background-color: #00bcd4;
+        border-radius: 0% 0% 40% 40%;
+        padding-top: 20px;
+        color: black;
+        font-weight: bold;
+        text-align: center;
+        font-size: 25px;
+        padding-bottom: 20px;
+    }
+</style>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-md-6">
+                <div class="card ">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">mail_outline</i>
+                        </div>
+                        <h4 class="card-title">View Board</h4>
+                    </div>
+                    <div class="card-body ">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="mr-3"><b>Original Core Member</b>:</label><span>02</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="mr-3"><b>Board Type</b>:</label><span>$100 - $1000</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="mr-3"><b>Total Member</b>:</label><span>10</span>
+                                </div>
+                                <div class="col-12"></div>
+                                <div class="col-md-6">
+                                    <label class="mr-3"><b>Core Member1</b>:</label><span>AKM</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="mr-3"><b>Core Member2</b>:</label><span>Millicent</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <h4 class="text-center">Members</h4>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold">Member1</td>
+                                        <td>Rast</td>
+                                        <td class="font-weight-bold">Member2</td>
+                                        <td>aylinag</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Member3</td>
+                                        <td>SonjaW</td>
+                                        <td class="font-weight-bold">Member4</td>
+                                        <td>AlexyxG</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Member5</td>
+                                        <td>Taylor</td>
+                                        <td class="font-weight-bold">Member6</td>
+                                        <td>John</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Member7</td>
+                                        <td>Tania</td>
+                                        <td class="font-weight-bold">Member10</td>
+                                        <td>Emma</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Board type - $100 Gift Board</h4>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 " style="padding-left:30px">
+                                <p class="boardbtn mb-2">Rasta</p>
+                            </div>
+                            <div class="col-6 text-right mb-2" style="padding-left:30px">
+                                <p class="boardbtn">AylanaG</p>
+                            </div>
+                            <div class="col-6 " style="padding-left:30px">
+                                <p class="boardbtn">SonjaW</p>
+                            </div>
+                            <div class="col-6 text-right" style="padding-left:30px">
+                                <p class="boardbtn">AlexysG</p>
+                            </div>
+                            <div class="col-12 mt-2 mb-2" style="padding-left:30px">
+                                <div class="boardstyle"><p>AKM</p></div>
+                                <div class="boardstylecenter"><p></p></div>
+                                <div class="boardstyle1"><p>Millicent</p></div>
+                            </div>
+                            <div class="col-6 " style="padding-left:30px">
+                                <p class="boardbtn mb-2">Taylor</p>
+                            </div>
+                            <div class="col-6 text-right mb-2" style="padding-left:30px">
+                                <p class="boardbtn">John</p>
+                            </div>
+                            <div class="col-6 " style="padding-left:30px">
+                                <p class="boardbtn">Tania</p>
+                            </div>
+                            <div class="col-6 text-right" style="padding-left:30px">
+                                <p class="boardbtn">Emma</p>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <button class="btn btn-info"><i class="fa fa-save mr-2"></i>Finish</button>
+                            </div>
+                            <div class="col-6 mt-3 text-right">
+                                <button class="btn btn-info"><i class="fa fa-plus mr-2"></i>Add A Member</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
